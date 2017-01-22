@@ -19,6 +19,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Web", "Web", "{C3A08AA0-FCC
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Data.Configuration", "Data\Data.Configuration.csproj", "{9779C799-7E0E-48CB-8DD9-839F45E2E2D8}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Entity Framework debugging", "Entity Framework debugging", "{08CD810F-22DE-44F4-9017-17767823CD36}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EfDebugger", "EfDebugger\EfDebugger.csproj", "{55986835-866E-4FEB-989D-B50A0DDEA9AF}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +37,10 @@ Global
 		{9779C799-7E0E-48CB-8DD9-839F45E2E2D8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9779C799-7E0E-48CB-8DD9-839F45E2E2D8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9779C799-7E0E-48CB-8DD9-839F45E2E2D8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{55986835-866E-4FEB-989D-B50A0DDEA9AF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{55986835-866E-4FEB-989D-B50A0DDEA9AF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{55986835-866E-4FEB-989D-B50A0DDEA9AF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{55986835-866E-4FEB-989D-B50A0DDEA9AF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -40,5 +48,6 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{E92D160C-3AB7-42FF-B50D-F45DACF0D8FA} = {671683A2-F13F-47B1-9677-D412603986C6}
 		{9779C799-7E0E-48CB-8DD9-839F45E2E2D8} = {7836D748-9B10-4FFB-A4E6-A560835608E6}
+		{55986835-866E-4FEB-989D-B50A0DDEA9AF} = {08CD810F-22DE-44F4-9017-17767823CD36}
 	EndGlobalSection
 EndGlobal

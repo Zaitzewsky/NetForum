@@ -4,15 +4,17 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{9779C799-7E0E-48CB-8DD9-839F45E2E2D8}</ProjectGuid>
-    <OutputType>Library</OutputType>
+    <ProjectGuid>{55986835-866E-4FEB-989D-B50A0DDEA9AF}</ProjectGuid>
+    <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Data</RootNamespace>
-    <AssemblyName>Data</AssemblyName>
+    <RootNamespace>EfDebugger</RootNamespace>
+    <AssemblyName>EfDebugger</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -22,6 +24,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
@@ -57,17 +60,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Configuration\UserConfiguration.cs" />
-    <Compile Include="Context\ForumContext.cs" />
-    <Compile Include="Migrations\201701151514132_Initial.cs" />
-    <Compile Include="Migrations\201701151514132_Initial.Designer.cs">
-      <DependentUpon>201701151514132_Initial.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201701221609577_ChangedToCustomIdentityTableNames.cs" />
-    <Compile Include="Migrations\201701221609577_ChangedToCustomIdentityTableNames.Designer.cs">
-      <DependentUpon>201701221609577_ChangedToCustomIdentityTableNames.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -75,18 +68,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Domain\Domain.csproj">
-      <Project>{e92d160c-3ab7-42ff-b50d-f45dacf0d8fa}</Project>
-      <Name>Domain</Name>
+    <ProjectReference Include="..\Data\Data.Configuration.csproj">
+      <Project>{9779c799-7e0e-48cb-8dd9-839f45e2e2d8}</Project>
+      <Name>Data.Configuration</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Migrations\201701151514132_Initial.resx">
-      <DependentUpon>201701151514132_Initial.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201701221609577_ChangedToCustomIdentityTableNames.resx">
-      <DependentUpon>201701221609577_ChangedToCustomIdentityTableNames.cs</DependentUpon>
-    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

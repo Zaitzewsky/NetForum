@@ -2,7 +2,6 @@
 using Domain.Model;
 using Microsoft.AspNet.Identity.EntityFramework;
 using Data.Configuration;
-using Data.DBInitializer;
 
 namespace Data.Context
 {
@@ -18,6 +17,11 @@ namespace Data.Context
             base.OnModelCreating(modelBuilder);
 
             modelBuilder.Configurations.Add(new UserConfiguration());
+
+            modelBuilder.Entity<IdentityRole>().ToTable("Roles");
+            modelBuilder.Entity<IdentityUserRole>().ToTable("UserRoles");
+            modelBuilder.Entity<IdentityUserClaim>().ToTable("UserClaims");
+            modelBuilder.Entity<IdentityUserLogin>().ToTable("UserLogins");
         }
     }
 }

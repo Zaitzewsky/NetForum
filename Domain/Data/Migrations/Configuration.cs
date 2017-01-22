@@ -7,7 +7,7 @@ namespace Data.Migrations
     using System.Data.Entity.Migrations;
     using System.Linq;
 
-    internal sealed class Configuration : DbMigrationsConfiguration<ForumContext>
+    public sealed class Configuration : DbMigrationsConfiguration<ForumContext>
     {
         public Configuration()
         {
@@ -55,13 +55,15 @@ namespace Data.Migrations
                 admin,
                 forumUser);
 
+            //This needs to be commented out at first initialization of the database.
+            //After the first initialization this codesnippet underneath can be uncommented.
             if (!userManager.IsInRole(admin.Id, "Admin"))
                 userManager.AddToRole(admin.Id, "Admin");
 
             if (!userManager.IsInRole(forumUser.Id, "ForumUser"))
                 userManager.AddToRole(forumUser.Id, "ForumUser");
 
-            base.Seed(context);
+
         }
     }
 }
