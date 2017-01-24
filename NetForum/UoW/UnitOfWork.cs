@@ -6,6 +6,10 @@ using UoW.Interface;
 
 namespace UoW
 {
+    /// <summary>
+    /// This will be used in the business layer only. The business layer will use this class in a using statement.
+    /// This is so that the DbContext will automatically be disposed.
+    /// </summary>
     public class UnitOfWork : IUnitOfWork, IDisposable
     {
         private readonly ForumContext _context;
