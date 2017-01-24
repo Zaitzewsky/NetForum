@@ -1,5 +1,5 @@
-﻿using Data.Repository.Repository;
-using Domain.Interface;
+﻿using UoW;
+using UoW.Interface;
 
 namespace IoC
 {
@@ -14,7 +14,7 @@ namespace IoC
 
         public void Map()
         {
-            _configurator.RegisterType<IUserRepository, UserRepository>();
+            _configurator.RegisterType<IUnitOfWork, UnitOfWork>();
         }
     }
 }
