@@ -9,6 +9,8 @@ namespace UoW
     /// <summary>
     /// This will be used in the business layer only. The business layer will use this class in a using statement.
     /// This is so that the DbContext will automatically be disposed.
+    /// Make the business layer class to implement IDisposable and then instantiate the business layer class per every
+    /// facade method and then in a "finally"-block the business layer object can be disposed.
     /// </summary>
     public class UnitOfWork : IUnitOfWork, IDisposable
     {
