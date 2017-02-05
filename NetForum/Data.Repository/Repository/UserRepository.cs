@@ -3,16 +3,63 @@ using Domain.Interface;
 using System;
 using System.Collections.Generic;
 using Data.Context;
+using Microsoft.AspNet.Identity;
+using System.Threading.Tasks;
+using System.Linq;
+using System.Data.Entity;
 
 namespace Data.Repository.Repository
 {
     public class UserRepository : IUserRepository
     {
         private readonly ForumContext _context;
+        private readonly UserManager<User> _userManager;
 
-        public UserRepository(ForumContext context)
+        public UserRepository(ForumContext context, UserManager<User> userManager)
         {
-            _context = context;            
+            _context = context;
+            _userManager = userManager;
+        }
+
+        public async Task<IEnumerable<User>> GetAllAsync()
+        {
+            return await _context.Users.ToListAsync().ConfigureAwait(false);
+        }
+
+        public async Task<User> GetAsync(User entity)
+        {
+            return await _context.Users.Where(user => user.Id == entity.Id).FirstOrDefaultAsync().ConfigureAwait(false);
+        }
+
+        public async Task<IdentityResult> Register(User user, string password)
+        {
+            return await _userManager.CreateAsync(user, password).ConfigureAwait(false);
+        }
+
+        public async Task<IdentityResult> UpdateAsync(User user)
+        {
+            return await _userManager.UpdateAsync(user).ConfigureAwait(false);
+        }
+
+        public async Task<User> Validate(string userName, string password)
+        {
+            var result = await _userManager.FindAsync(userName, password).ConfigureAwait(false);
+            return result;
+        }
+
+        public void SaveChanges()
+        {
+            _context.SaveChanges();
+        }
+
+        #region Unused Interface Implementation
+        public void Update(User entity)
+        {
+            throw new NotImplementedException();
+        }
+        public void Add(User entity)
+        {
+            throw new NotImplementedException();
         }
 
         public void Delete(User entity)
@@ -20,7 +67,7 @@ namespace Data.Repository.Repository
             throw new NotImplementedException();
         }
 
-        public User Get(int id)
+        public User Get(User entity)
         {
             throw new NotImplementedException();
         }
@@ -29,25 +76,6 @@ namespace Data.Repository.Repository
         {
             throw new NotImplementedException();
         }
-
-        public void Insert(User entity)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void Remove(User entity)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void SaveChanges()
-        {
-            throw new NotImplementedException();
-        }
-
-        public void Update(User entity)
-        {
-            throw new NotImplementedException();
-        }
+        #endregion
     }
 }
