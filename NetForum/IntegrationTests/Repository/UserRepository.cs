@@ -8,6 +8,7 @@ using System.Transactions;
 using Microsoft.AspNet.Identity;
 using System.Data.Entity.Validation;
 using System.Linq;
+using DataSupplier;
 
 namespace IntegrationTests.Repository
 {
@@ -26,36 +27,14 @@ namespace IntegrationTests.Repository
             _unitOfWork = new UnitOfWork();
             _sut = _unitOfWork.GetUserRepository();
             _password = "Zaitzewsky12345";
-            CreateUsers();
-
+            _user = DataSupplier.DataSupplier.CreateUsers(_password).First();
+            _userTwo = DataSupplier.DataSupplier.CreateUsers(_password).LastOrDefault();
         }
 
         [TestCleanup]
         public void Cleanup()
         {
             _unitOfWork.Dispose();
-        }
-
-        private void CreateUsers()
-        {
-            _user = new User
-            {
-                UserName = "UserName",
-                Email = "user@hotmail.com",
-                PhoneNumber = "0739660279",
-                PasswordHash = new PasswordHasher().HashPassword(_password),
-                FirstName = "User",
-                LastName = "Usersson"
-            };
-            _userTwo = new User
-            {
-                UserName = "SecondUser",
-                Email = "user@hotmail.com",
-                PhoneNumber = "0739660279",
-                PasswordHash = new PasswordHasher().HashPassword(_password),
-                FirstName = "User",
-                LastName = "Usersson"
-            };
         }
 
         [TestMethod]
