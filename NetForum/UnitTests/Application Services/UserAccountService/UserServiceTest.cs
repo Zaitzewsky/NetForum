@@ -1,9 +1,12 @@
 ﻿using Domain.Interface;
 using Domain.Model;
 using Exceptions.Validation;
+using Microsoft.AspNet.Identity;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
+using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using UoW.Interface;
@@ -38,6 +41,7 @@ namespace UnitTests.Application_Services.UserAccountService
             //Mock setup
             _userRepository.Setup(x => x.GetAllAsync()).Returns(asyncUsers);
             _userRepository.Setup(x => x.GetAsync(It.IsAny<User>())).Returns(asyncUser);
+            _userRepository.Setup(x => x.UpdateAsync(It.IsAny<User>())).Returns(Task.FromResult(IdentityResult.Success));
             _uow.Setup(x => x.GetUserRepository()).Returns(_userRepository.Object);
 
             //System under test initialise
@@ -68,10 +72,7 @@ namespace UnitTests.Application_Services.UserAccountService
             IEnumerable<User> emptyListOfUSers = new List<User>();
             var usersAsync = Task.FromResult(emptyListOfUSers);
 
-            var nullUser = Task.FromResult<User>(null);
-
             _userRepository.Setup(x => x.GetAllAsync()).Returns(usersAsync);
-            _userRepository.Setup(x => x.GetAsync(It.IsAny<User>())).Returns(nullUser);
 
             await _sut.GetAllAsync();
         }
@@ -105,7 +106,82 @@ namespace UnitTests.Application_Services.UserAccountService
             var user = await _sut.GetAsync(_user);
 
             Assert.IsNotNull(user);
-        } 
+        }
+
+        [TestMethod]
+        [TestCategory("UnitTest")]
+        [ExpectedException(typeof(ServerValidationException))]
+        public async Task UpdateAsync()
+        {
+            await _sut.UpdateAsync(_user);
+        }
+
+        [TestMethod]
+        [TestCategory("UnitTest")]
+        public async Task UpdateAsyncValidationTypeSuccess()
+        {
+            try
+            {
+                await _sut.UpdateAsync(_user);
+            }
+            catch (ServerValidationException ex)
+            {
+                Assert.AreEqual(ServerValidationException.ServerValidationExceptionType.Success, ex.ValidationExceptionType);
+            }
+        }
+
+        [TestMethod]
+        [TestCategory("UnitTest")]
+        public async Task UpdateAsyncValidationTypeError()
+        {
+            try
+            {
+                _userRepository.Setup(x => x.UpdateAsync(It.IsAny<User>())).Returns(Task.FromResult(new IdentityResult()));
+                await _sut.UpdateAsync(_user);
+            }
+            catch (ServerValidationException ex)
+            {
+                Assert.AreEqual(ServerValidationException.ServerValidationExceptionType.Error, ex.ValidationExceptionType);
+            }
+        }
+
+        [TestMethod]
+        [TestCategory("UnitTest")]
+        public async Task UpdateAsyncCorrectAmountOfRowsInErrorMessage()
+        {
+            const int amountOfErrors = 3;
+            const int firstErrorLine = 1;
+            const int lastErrorLine = 1;
+            try
+            {
+                var errors = new string[amountOfErrors] { "Error1", "Error2", "Error3" };
+                _userRepository.Setup(x => x.UpdateAsync(It.IsAny<User>())).Returns(Task.FromResult(IdentityResult.Failed(errors)));
+
+                await _sut.UpdateAsync(_user);
+            }
+            catch (ServerValidationException ex)
+            {
+                Debug.WriteLine(ex.Message);
+                int numLines = ex.Message.Split('\n').Length;
+                Assert.AreEqual(firstErrorLine + amountOfErrors + lastErrorLine, numLines);
+            }
+        }
+
+        [TestMethod]
+        [TestCategory("UnitTest")]
+        public async Task UpdateAsyncCorrectAmountOfRowsInSuccessMessage()
+        {
+            const int amountOfRows = 1;
+            try
+            {
+                await _sut.UpdateAsync(_user);
+            }
+            catch (ServerValidationException ex)
+            {
+                int numLines = ex.Message.Split('\n').Length;
+                Assert.AreEqual(amountOfRows, numLines);
+            }
+        }
         #endregion
     }
 }

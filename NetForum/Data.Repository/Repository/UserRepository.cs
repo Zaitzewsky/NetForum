@@ -43,8 +43,7 @@ namespace Data.Repository.Repository
 
         public async Task<User> Validate(string userName, string password)
         {
-            var result = await _userManager.FindAsync(userName, password).ConfigureAwait(false);
-            return result;
+            return await _userManager.FindAsync(userName, password).ConfigureAwait(false);
         }
 
         public void SaveChanges()
