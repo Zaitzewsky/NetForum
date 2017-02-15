@@ -120,20 +120,24 @@ namespace UnitTests.Application_Services.UserAccountService
         [TestCategory("UnitTest")]
         public async Task UpdateAsyncValidationTypeSuccess()
         {
+            var exception = new ServerValidationException();
             try
             {
                 await _sut.UpdateAsync(_user);
             }
             catch (ServerValidationException ex)
             {
-                Assert.AreEqual(ServerValidationException.ServerValidationExceptionType.Success, ex.ValidationExceptionType);
+                exception = ex;
             }
+
+            Assert.AreEqual(ServerValidationException.ServerValidationExceptionType.Success, exception.ValidationExceptionType);
         }
 
         [TestMethod]
         [TestCategory("UnitTest")]
         public async Task UpdateAsyncValidationTypeError()
         {
+            var exception = new ServerValidationException();
             try
             {
                 _userRepository.Setup(x => x.UpdateAsync(It.IsAny<User>())).Returns(Task.FromResult(new IdentityResult()));
@@ -141,8 +145,9 @@ namespace UnitTests.Application_Services.UserAccountService
             }
             catch (ServerValidationException ex)
             {
-                Assert.AreEqual(ServerValidationException.ServerValidationExceptionType.Error, ex.ValidationExceptionType);
+                exception = ex;   
             }
+            Assert.AreEqual(ServerValidationException.ServerValidationExceptionType.Error, exception.ValidationExceptionType);
         }
 
         [TestMethod]
@@ -181,6 +186,24 @@ namespace UnitTests.Application_Services.UserAccountService
                 int numLines = ex.Message.Split('\n').Length;
                 Assert.AreEqual(amountOfRows, numLines);
             }
+        }
+
+        [TestMethod]
+        [TestCategory("UnitTest")]
+        public async Task Dispose()
+        {
+            _sut.Dispose();
+
+            _uow.Verify(uow => uow.Dispose());
+        }
+
+        [TestMethod]
+        [TestCategory("UnitTest")]
+        public async Task DisposeOnce()
+        {
+            _sut.Dispose();
+
+            _uow.Verify(uow => uow.Dispose(), Times.Once);
         }
         #endregion
     }

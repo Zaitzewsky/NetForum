@@ -81,6 +81,17 @@ namespace IntegrationTests.Repository
 
         [TestMethod]
         [TestCategory("Integration")]
+        public async Task RegisterIsInstanceOfIdentityResult()
+        {
+            using (new TransactionScope(TransactionScopeAsyncFlowOption.Enabled))
+            {
+                var result = await _sut.Register(_user, _password);
+                Assert.IsInstanceOfType(result, typeof(IdentityResult));
+            }
+        }
+
+        [TestMethod]
+        [TestCategory("Integration")]
         [ExpectedException(typeof(DbEntityValidationException))]
         public async Task RegisterFail()
         {
@@ -182,6 +193,20 @@ namespace IntegrationTests.Repository
                 var identityResult = await _sut.UpdateAsync(_user);
 
                 Assert.IsTrue(identityResult.Succeeded);
+            }
+        }
+
+        [TestMethod]
+        [TestCategory("Integration")]
+        public async Task UpdateAsyncIsOfTypeIdentityResult()
+        {
+            using (new TransactionScope(TransactionScopeAsyncFlowOption.Enabled))
+            {
+                await _sut.Register(_user, _password);
+                _user.UserName = "UpdatedUsername";
+                var identityResult = await _sut.UpdateAsync(_user);
+
+                Assert.IsInstanceOfType(identityResult, typeof(IdentityResult));
             }
         }
 

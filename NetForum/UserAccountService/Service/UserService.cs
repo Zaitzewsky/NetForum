@@ -13,13 +13,18 @@ namespace UserAccountServiceNameSpace.Service
 {
     public class UserService : IUserService
     {
-        private readonly IUnitOfWork _unitOfWork;
+        private readonly IUnitOfWork _uow;
         private readonly IUserRepository _userRepository;
 
         public UserService(IUnitOfWork unitOfWork)
         {
-            _unitOfWork = unitOfWork;
-            _userRepository = _unitOfWork.GetUserRepository();
+            _uow = unitOfWork;
+            _userRepository = _uow.GetUserRepository();
+        }
+
+        public void Dispose()
+        {
+            _uow.Dispose();
         }
 
         public async Task<IEnumerable<User>> GetAllAsync()
