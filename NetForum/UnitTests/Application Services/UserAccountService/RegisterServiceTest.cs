@@ -53,70 +53,21 @@ namespace UnitTests.Application_Services.UserAccountService
         #region Tests
         [TestMethod]
         [TestCategory("UnitTest")]
-        [ExpectedException(typeof(ServerValidationException))]
-        public async Task RegisterAsyncSuccessServerValidationSuccess()
-        {
-            await _sut.Register(_user, _password);
-        }
-
-        [TestMethod]
-        [TestCategory("UnitTest")]
-        [ExpectedException(typeof(ServerValidationException))]
-        public async Task RegisterAsyncSuccessServerValidationError()
-        {
-            await _sut.Register(_user, _password);
-        }
-
-        [TestMethod]
-        [TestCategory("UnitTest")]
         public async Task RegisterAsyncValidationTypeSuccess()
         {
-            var exception = new ServerValidationException();
+            var identityResult = await _sut.Register(_user, _password);
 
-            try
-            {
-                await _sut.Register(_user, _password);
-            }
-            catch (ServerValidationException ex)
-            {
-                exception = ex;
-            }
-
-            Assert.AreEqual(ServerValidationException.ServerValidationExceptionType.Success, exception.ValidationExceptionType);
+            Assert.IsTrue(identityResult.Succeeded);
         }
 
         [TestMethod]
         [TestCategory("UnitTest")]
         public async Task RegisterAsyncValidationTypeError()
         {
-            var exception = new ServerValidationException();
+            _userRepository.Setup(x => x.Register(_user, _password)).Returns(Task.FromResult(new IdentityResult()));
+            var identityResult = await _sut.Register(_user, _password);
 
-            try
-            {
-                _userRepository.Setup(x => x.Register(_user, _password)).Returns(Task.FromResult(new IdentityResult()));
-                await _sut.Register(_user, _password);
-            }
-            catch (ServerValidationException ex)
-            {
-                exception = ex;
-            }
-            Assert.AreEqual(ServerValidationException.ServerValidationExceptionType.Error, exception.ValidationExceptionType);
-        }
-
-        [TestMethod]
-        [TestCategory("UnitTest")]
-        public async Task RegisterAsyncCorrectAmountOfRowsInSuccessMessage()
-        {
-            const int amountOfRows = 1;
-            try
-            {
-                await _sut.Register(_user, _password);
-            }
-            catch (ServerValidationException ex)
-            {
-                int numLines = ex.Message.Split('\n').Length;
-                Assert.AreEqual(amountOfRows, numLines);
-            }
+            Assert.IsFalse(identityResult.Succeeded);
         }
 
         [TestMethod]

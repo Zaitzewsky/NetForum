@@ -7,6 +7,6 @@ namespace UserAccountServiceNameSpace.Interface
 {
     public interface IRegisterService : IDisposable
     {
-        Task Register(User _user, string _password);
+        Task<IdentityResult> Register(User _user, string _password);
     }
 }

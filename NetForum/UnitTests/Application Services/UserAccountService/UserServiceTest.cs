@@ -4,9 +4,7 @@ using Exceptions.Validation;
 using Microsoft.AspNet.Identity;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
-using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using UoW.Interface;
@@ -110,82 +108,21 @@ namespace UnitTests.Application_Services.UserAccountService
 
         [TestMethod]
         [TestCategory("UnitTest")]
-        [ExpectedException(typeof(ServerValidationException))]
-        public async Task UpdateAsync()
+        public async Task UpdateAsyncIdentityResultSuccess()
         {
-            await _sut.UpdateAsync(_user);
+            var identityResult = await _sut.UpdateAsync(_user);
+
+            Assert.IsTrue(identityResult.Succeeded);
         }
 
         [TestMethod]
         [TestCategory("UnitTest")]
-        public async Task UpdateAsyncValidationTypeSuccess()
+        public async Task UpdateAsyncIdentityResultError()
         {
-            var exception = new ServerValidationException();
-            try
-            {
-                await _sut.UpdateAsync(_user);
-            }
-            catch (ServerValidationException ex)
-            {
-                exception = ex;
-            }
+            _userRepository.Setup(x => x.UpdateAsync(It.IsAny<User>())).Returns(Task.FromResult(new IdentityResult()));
+            var identityResult = await _sut.UpdateAsync(_user);
 
-            Assert.AreEqual(ServerValidationException.ServerValidationExceptionType.Success, exception.ValidationExceptionType);
-        }
-
-        [TestMethod]
-        [TestCategory("UnitTest")]
-        public async Task UpdateAsyncValidationTypeError()
-        {
-            var exception = new ServerValidationException();
-            try
-            {
-                _userRepository.Setup(x => x.UpdateAsync(It.IsAny<User>())).Returns(Task.FromResult(new IdentityResult()));
-                await _sut.UpdateAsync(_user);
-            }
-            catch (ServerValidationException ex)
-            {
-                exception = ex;   
-            }
-            Assert.AreEqual(ServerValidationException.ServerValidationExceptionType.Error, exception.ValidationExceptionType);
-        }
-
-        [TestMethod]
-        [TestCategory("UnitTest")]
-        public async Task UpdateAsyncCorrectAmountOfRowsInErrorMessage()
-        {
-            const int amountOfErrors = 3;
-            const int firstErrorLine = 1;
-            const int lastErrorLine = 1;
-            try
-            {
-                var errors = new string[amountOfErrors] { "Error1", "Error2", "Error3" };
-                _userRepository.Setup(x => x.UpdateAsync(It.IsAny<User>())).Returns(Task.FromResult(IdentityResult.Failed(errors)));
-
-                await _sut.UpdateAsync(_user);
-            }
-            catch (ServerValidationException ex)
-            {
-                Debug.WriteLine(ex.Message);
-                int numLines = ex.Message.Split('\n').Length;
-                Assert.AreEqual(firstErrorLine + amountOfErrors + lastErrorLine, numLines);
-            }
-        }
-
-        [TestMethod]
-        [TestCategory("UnitTest")]
-        public async Task UpdateAsyncCorrectAmountOfRowsInSuccessMessage()
-        {
-            const int amountOfRows = 1;
-            try
-            {
-                await _sut.UpdateAsync(_user);
-            }
-            catch (ServerValidationException ex)
-            {
-                int numLines = ex.Message.Split('\n').Length;
-                Assert.AreEqual(amountOfRows, numLines);
-            }
+            Assert.IsFalse(identityResult.Succeeded);
         }
 
         [TestMethod]
@@ -203,7 +140,7 @@ namespace UnitTests.Application_Services.UserAccountService
         {
             _sut.Dispose();
 
-            _uow.Verify(uow => uow.Dispose(), Times.Once);
+            _uow.Verify(uow => uow.Dispose(), Times.AtMostOnce);
         }
         #endregion
     }

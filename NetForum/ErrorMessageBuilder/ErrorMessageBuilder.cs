@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Text;
 using System.Data.Entity.Validation;
 
@@ -32,8 +31,11 @@ namespace MessageBuilder
 
             foreach (var error in errors)
             {
-                stringBuilder.AppendLine();
-                stringBuilder.Append(error);
+                foreach (var validationError in error.ValidationErrors)
+                {
+                    stringBuilder.AppendLine();
+                    stringBuilder.Append(validationError.ErrorMessage);
+                }
             }
 
             return stringBuilder.ToString();
