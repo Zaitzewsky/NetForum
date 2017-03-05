@@ -28,16 +28,11 @@ namespace UserAccountServiceNameSpace.Service
             _uow.Dispose();
         }
 
-        public async Task Register(User user, string password)
+        public async Task<IdentityResult> Register(User user, string password)
         {
             try
             {
-                var identityResult = await _userRepository.Register(user, password);
-                if (identityResult.Succeeded)
-                    throw new ServerValidationException("Register successful!", ServerValidationException.ServerValidationExceptionType.Success);
-
-                if (!identityResult.Succeeded || (identityResult.Errors.Any() && !identityResult.Succeeded))
-                    throw new ServerValidationException(ErrorMessageBuilder.BuildErrorMessage("Registration failed due to these issues: ", identityResult.Errors), ServerValidationException.ServerValidationExceptionType.Error);
+                return await _userRepository.Register(user, password);
             }
             catch (DbEntityValidationException ex)
             {

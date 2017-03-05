@@ -1,7 +1,7 @@
 ﻿using Domain.Interface;
 using Domain.Model;
 using Exceptions.Validation;
-using MessageBuilder;
+using Microsoft.AspNet.Identity;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -61,16 +61,11 @@ namespace UserAccountServiceNameSpace.Service
             }
         }
 
-        public async Task UpdateAsync(User user)
+        public async Task<IdentityResult> UpdateAsync(User user)
         {
             try
             {
-                var identityResult = await _userRepository.UpdateAsync(user);
-                if (identityResult.Succeeded)
-                    throw new ServerValidationException("Update successful!", ServerValidationException.ServerValidationExceptionType.Success);
-
-                if (!identityResult.Succeeded || (identityResult.Errors.Any() && !identityResult.Succeeded))
-                    throw new ServerValidationException(ErrorMessageBuilder.BuildErrorMessage("Update failed due to these issues: ", identityResult.Errors), ServerValidationException.ServerValidationExceptionType.Error);
+                return await _userRepository.UpdateAsync(user);
             }
             catch (Exception)
             {

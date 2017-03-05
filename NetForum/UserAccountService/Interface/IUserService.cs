@@ -10,6 +10,6 @@ namespace UserAccountServiceNameSpace.Interface
     {
         Task<IEnumerable<User>> GetAllAsync();
         Task<User> GetAsync(User user);
-        Task UpdateAsync(User _user);
+        Task<IdentityResult> UpdateAsync(User _user);
     }
 }

@@ -8,7 +8,6 @@ using System.Transactions;
 using Microsoft.AspNet.Identity;
 using System.Data.Entity.Validation;
 using System.Linq;
-using DataSupplier;
 
 namespace IntegrationTests.Repository
 {
@@ -93,11 +92,23 @@ namespace IntegrationTests.Repository
         [TestMethod]
         [TestCategory("Integration")]
         [ExpectedException(typeof(DbEntityValidationException))]
-        public async Task RegisterFail()
+        public async Task RegisterFailOnSameUser()
         {
             using (new TransactionScope(TransactionScopeAsyncFlowOption.Enabled))
             {
                 await _sut.Register(_user, _password);
+                await _sut.Register(_user, _password);
+            }
+        }
+
+        [TestMethod]
+        [TestCategory("Integration")]
+        [ExpectedException(typeof(DbEntityValidationException))]
+        public async Task RegisterFailOnUserNameLongerThanThirtyCharacters()
+        {
+            using (new TransactionScope(TransactionScopeAsyncFlowOption.Enabled))
+            {
+                _user.UserName = string.Concat(Enumerable.Repeat("A", 35));
                 await _sut.Register(_user, _password);
             }
         }
