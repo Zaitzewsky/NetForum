@@ -1,4 +1,7 @@
-﻿using UoW;
+﻿using AutoMapper;
+using Mapping.Configuration;
+using Microsoft.Practices.Unity;
+using UoW;
 using UoW.Interface;
 
 namespace IoC
@@ -9,16 +12,20 @@ namespace IoC
     /// </summary>
     public class IoCMapper
     {
-        private readonly IoCConfigurator _configurator;
+        private readonly IUnityContainer _unityContainer;
+        private readonly IMapper _mapper;
 
         public IoCMapper()
         {
-            _configurator = new IoCConfigurator();
+            _unityContainer = new UnityContainer();
+            var mapperConfig = new AutoMapperConfiguration();
+            _mapper = mapperConfig.Map();
         }
 
         public void Map()
         {
-            _configurator.RegisterType<IUnitOfWork, UnitOfWork>();
+            _unityContainer.RegisterType<IUnitOfWork, UnitOfWork>();
+            _unityContainer.RegisterInstance<IMapper>(_mapper);
         }
     }
 }
