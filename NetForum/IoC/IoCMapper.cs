@@ -3,6 +3,10 @@ using Mapping.Configuration;
 using Microsoft.Practices.Unity;
 using UoW;
 using UoW.Interface;
+using UserAccountFacade.Facade;
+using UserAccountFacade.Interface;
+using UserAccountServiceNameSpace.Interface;
+using UserAccountServiceNameSpace.Service;
 
 namespace IoC
 {
@@ -25,6 +29,8 @@ namespace IoC
         public void Map()
         {
             _unityContainer.RegisterType<IUnitOfWork, UnitOfWork>();
+            _unityContainer.RegisterType<IRegisterService, RegisterService>();
+            _unityContainer.RegisterType<IRegisterFacade, RegisterFacade>();
             _unityContainer.RegisterInstance<IMapper>(_mapper);
         }
     }

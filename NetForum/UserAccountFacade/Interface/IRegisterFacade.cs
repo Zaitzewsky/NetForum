@@ -9,5 +9,6 @@ namespace UserAccountFacade.Interface
     {
         Task<IdentityResult> Register(UserViewmodel user, string password);
         User MapUserFromUserViewModel(UserViewmodel userViewmodel);
+        void Dispose();
     }
 }
