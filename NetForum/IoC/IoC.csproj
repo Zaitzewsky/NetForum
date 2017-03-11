@@ -82,6 +82,14 @@
       <Project>{1714DF0D-F1BB-44BF-BCF7-14328508D910}</Project>
       <Name>UoW</Name>
     </ProjectReference>
+    <ProjectReference Include="..\UserAccountFacade\UserAccountFacade.csproj">
+      <Project>{5325E1A1-79DF-4A31-9258-CF0A85EE6A47}</Project>
+      <Name>UserAccountFacade</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\UserAccountService\UserAccountService.csproj">
+      <Project>{5C3FD820-3246-4865-9A00-A075716FD89F}</Project>
+      <Name>UserAccountService</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Analyzer Include="..\packages\SonarAnalyzer.CSharp.1.22.0.1631\analyzers\Google.Protobuf.dll" />

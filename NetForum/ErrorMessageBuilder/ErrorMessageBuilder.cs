@@ -27,14 +27,13 @@ namespace MessageBuilder
             var stringBuilder = new StringBuilder();
 
             stringBuilder.Append(errorMessage);
-            stringBuilder.AppendLine();
 
             foreach (var error in errors)
             {
                 foreach (var validationError in error.ValidationErrors)
                 {
-                    stringBuilder.AppendLine();
                     stringBuilder.Append(validationError.ErrorMessage);
+                    stringBuilder.AppendLine();
                 }
             }
 
