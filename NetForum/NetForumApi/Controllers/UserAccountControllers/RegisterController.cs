@@ -16,7 +16,7 @@ namespace NetForumApi.Controllers.UserAccountControllers
     {
         private readonly IRegisterFacade _registerFacade;
 
-        public RegisterController(IUnitOfWork uow, IMapper automapper, IRegisterService registerService, IRegisterFacade registerFacade)
+        public RegisterController(IRegisterFacade registerFacade)
         {
             _registerFacade = registerFacade;
         }
