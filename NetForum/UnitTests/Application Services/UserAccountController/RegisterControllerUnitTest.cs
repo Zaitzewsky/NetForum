@@ -1,12 +1,9 @@
-﻿using UoW.Interface;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using UserAccountFacade.Interface;
 using Viewmodels.UserAccount;
 using System.Threading.Tasks;
 using Microsoft.AspNet.Identity;
-using AutoMapper;
-using UserAccountServiceNameSpace.Interface;
 using NetForumApi.Controllers.UserAccountControllers;
 using System.Linq;
 using System.Web.Http.Results;
@@ -18,9 +15,6 @@ namespace UnitTests.Application_Services.UserAccountController
     public class RegisterControllerUnitTest
     {
         private Mock<IRegisterFacade> _registerFacadeMock;
-        private Mock<IRegisterService> _registerServiceMock;
-        private Mock<IUnitOfWork> _uowMock;
-        private Mock<IMapper> _automapperMock;
         private RegisterController _sut;
 
         private UserViewmodel _user;
@@ -32,13 +26,9 @@ namespace UnitTests.Application_Services.UserAccountController
             _user = DataSupplier.DataSupplier.CreateUserViewmodels("Password").First();
 
             _registerFacadeMock = new Mock<IRegisterFacade>();
-            _automapperMock = new Mock<IMapper>();
-            _registerServiceMock = new Mock<IRegisterService>();
-            _uowMock = new Mock<IUnitOfWork>();
-
             _registerFacadeMock.Setup(x => x.Register(It.IsAny<UserViewmodel>(), It.IsAny<string>())).Returns(Task.FromResult(IdentityResult.Success));
 
-            _sut = new RegisterController(_uowMock.Object, _automapperMock.Object, _registerServiceMock.Object, _registerFacadeMock.Object);
+            _sut = new RegisterController(_registerFacadeMock.Object);
         }
         #endregion
 
