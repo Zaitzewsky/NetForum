@@ -11,32 +11,26 @@ using MessageBuilder;
 
 namespace NetForumApi.Controllers.UserAccountControllers
 {
+    [RoutePrefix("api/register")]
     public class RegisterController : ApiController
     {
-        private readonly IUnitOfWork _uow;
-        private IMapper _automapper;
-        private readonly IRegisterService _registerService;
         private readonly IRegisterFacade _registerFacade;
 
         public RegisterController(IUnitOfWork uow, IMapper automapper, IRegisterService registerService, IRegisterFacade registerFacade)
         {
-            _uow = uow;
-            _automapper = automapper;
-            _registerService = registerService;
             _registerFacade = registerFacade;
         }
 
         protected override void Dispose(bool disposing)
         {
             if (disposing)
-            {
                 _registerFacade.Dispose();
-                _automapper = null;
-            }
+
             base.Dispose(disposing);
         }
 
         [HttpPost]
+        [AllowAnonymous]
         [Route("")]
         public async Task<IHttpActionResult> Post(UserViewmodel user)
         {
