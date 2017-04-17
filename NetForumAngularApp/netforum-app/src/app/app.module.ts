@@ -8,10 +8,15 @@ import { AppRoutingModule } from './routing/app-routing.module';
 import { AppComponent } from './components/app-component/app.component';
 import { RegisterComponent } from './components/register-component/register.component';
 
+import { AlertComponent } from './directives/alert.component';
+
+import { AlertService, AuthenticationService, RegisterService } from './services/index';
+
 @NgModule({
   declarations: [
     RegisterComponent,
-    AppComponent
+    AppComponent,
+    AlertComponent
   ],
   imports: [
     BrowserModule,
@@ -19,7 +24,11 @@ import { RegisterComponent } from './components/register-component/register.comp
     HttpModule,
     AppRoutingModule
   ],
-  providers: [],
+  providers: [
+      AlertService,
+      AuthenticationService,
+      RegisterService
+  ],
   bootstrap: [
     AppComponent
   ]

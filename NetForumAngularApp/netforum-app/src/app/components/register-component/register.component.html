@@ -1,57 +1,40 @@
-<div class="col-md-4"></div>
-<div class="container col-md-4">
+
+<div class="col-md-6 col-md-offset-3">
     <h1>Register</h1>
-    <form (ngSubmit)="onSubmit()" #registerForm="ngForm">
-      <div class="form-group">
-        <label for="firstName">First name</label>
-        <input type="text" class="form-control" id="firstName" required [(ngModel)]="user.firstName" name="firstName" #firstName="ngModel">
-        <div [hidden]="firstName.valid || firstName.untouched" class="alert alert-danger" id="errorMessageFirstNameRegistration">
-          First name is required
-        </div>
-      </div>
+    <form name="form" (ngSubmit)="onSubmit()" #registerForm="ngForm" novalidate>
 
-      <div class="form-group">
-        <label for="lastName">Last name</label>
-        <input type="text" class="form-control" id="lastName" required [(ngModel)]="user.lastName" name="firstName"name="lastName" #lastName="ngModel">
-        <div [hidden]="lastName.valid || lastName.untouched" class="alert alert-danger" id="errorMessageLastNameRegistration">
-          Last name is required
-        </div>
+      <div class="form-group" [ngClass]="{ 'has-error': registerForm.submitted && !firstName.valid }">
+          <label for="firstName">First Name</label>
+          <input type="text" id="firstName" class="form-control" name="firstName" [(ngModel)]="user.firstName" #firstName="ngModel" required />
+          <div *ngIf="registerForm.submitted && !firstName.valid" class="help-block" id="errorMessageFirstNameRegistration">First Name is required</div>
       </div>
-
-      <div class="form-group">
-        <label for="email">Email</label>
-        <input type="email" class="form-control" id="email" required [(ngModel)]="user.email" name="email" pattern='^[a-z0-9]+(\.[_a-z0-9]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,15})$' #email="ngModel">
-        <div [hidden]="email.valid || email.untouched" class="alert alert-danger" id="errorMessageEmailRegistration">
-          Email has to be in format: email@adress.com
-        </div>
+      <div class="form-group" [ngClass]="{ 'has-error': registerForm.submitted && !lastName.valid }">
+          <label for="lastName">Last Name</label>
+          <input type="text" id="lastName" class="form-control" name="lastName" [(ngModel)]="user.lastName" #lastName="ngModel" required />
+          <div *ngIf="registerForm.submitted && !lastName.valid" class="help-block" id="errorMessageLastNameRegistration">Last Name is required</div>
       </div>
-
-      <div class="form-group">
-        <label for="phoneNumber">Phone number</label>
-        <input type="text" class="form-control" id="phoneNumber" required [(ngModel)]="user.phoneNumber" name="phoneNumber" #phoneNumber="ngModel">
-        <div [hidden]="phoneNumber.valid || phoneNumber.untouched" class="alert alert-danger" id="errorMessagePhoneNumberRegistration">
-          Phone number is required
-        </div>
+      <div class="form-group" [ngClass]="{ 'has-error': registerForm.submitted && !email.valid }">
+          <label for="email">Email</label>
+          <input type="email" id="email" class="form-control" name="email" [(ngModel)]="user.email" #email="ngModel" required pattern='^[a-z0-9]+(\.[_a-z0-9]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,15})$'/>
+          <div *ngIf="registerForm.submitted && !email.valid" class="help-block" id="errorMessageEmailRegistration">
+            Email has to be in format: email@adress.com
+          </div>
       </div>
-
-      <div class="form-group">
-        <label for="userName">Username</label>
-        <input type="text" class="form-control" id="userName" required [(ngModel)]="user.userName" name="userName" #userName="ngModel">
-        <div [hidden]="userName.valid || userName.untouched" class="alert alert-danger" id="errorMessageUsernameRegistration">
-          Username is required
-        </div>
+      <div class="form-group" [ngClass]="{ 'has-error': registerForm.submitted && !username.valid }">
+          <label for="username">Username</label>
+          <input type="text" id="userName" class="form-control" name="username" [(ngModel)]="user.username" #username="ngModel" required />
+          <div *ngIf="registerForm.submitted && !username.valid" class="help-block" id="errorMessageUserNameRegistration">Username is required</div>
       </div>
-
-      <div class="form-group">
-        <label for="password">Password</label>
-        <input type="password" class="form-control" id="password" required [(ngModel)]="user.password" name="password" #password="ngModel">
-        <div [hidden]="password.valid || password.untouched" class="alert alert-danger" id="errorMessagePasswordRegistration">
-          Password is required
-        </div>
+      <div class="form-group" [ngClass]="{ 'has-error': registerForm.submitted && !password.valid }">
+          <label for="password">Password</label>
+          <input type="password" id="password" class="form-control" name="password" [(ngModel)]="user.password" #password="ngModel" required />
+          <div *ngIf="registerForm.submitted && !password.valid" class="help-block" id="errorMessagePasswordRegistration">Password is required</div>
       </div>
-
-      <button type="submit" id="registerButton" class="btn btn-success" [disabled]="!registerForm.form.valid">Register</button>
+      <div class="form-group">
+          <button type="submit" id="registerButton" class="btn btn-success" [disabled]="!registerForm.form.valid || loading">Register</button>
+          <img *ngIf="loading" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
+          <a [routerLink]="['/login']" class="btn btn-link">Cancel</a>
+      </div>
 
     </form>
 </div>
-<div class="col-md-4"></div>
