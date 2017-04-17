@@ -1,8 +1,8 @@
 import { TestBed, async } from '@angular/core/testing';
 
-import { RegisterComponent } from './components/app.register.component';
+import { RegisterComponent } from '../../components/register-component/register.component';
 
-describe('AppComponent', () => {
+describe('RegisterUnitTest', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [
@@ -16,13 +16,7 @@ describe('AppComponent', () => {
     const app = fixture.debugElement.componentInstance;
     expect(app).toBeTruthy();
   }));
-
-  it(`should have as title 'Huehue :D'`, async(() => {
-    const fixture = TestBed.createComponent(RegisterComponent);
-    const app = fixture.debugElement.componentInstance;
-    expect(app.title + ' ' + app.age).toEqual('Huehue :D');
-  }));
-
+  
   it('should render title in a h1 tag', async(() => {
     const fixture = TestBed.createComponent(RegisterComponent);
     fixture.detectChanges();

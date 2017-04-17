@@ -1,10 +1,10 @@
 import { Component } from '@angular/core';
-import { User }    from '../models/user';
+import { User }      from '../../models/user';
 
 @Component({
-  selector: 'app-root',
-  templateUrl: '../html/register/register-form.component.html',
-  styleUrls: ['../css/app.component.css', '../css/app.component.forms.css']
+  selector: 'register',
+  templateUrl: './register.component.html',
+  styleUrls: ['./register.component.css']
 })
 
 export class RegisterComponent {
