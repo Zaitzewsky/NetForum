@@ -4,7 +4,7 @@ describe('Registration form in Netforum', () => {
 
   beforeEach(() => {
     browser.ignoreSynchronization = false;
-    browser.get('/', 1000000);
+    browser.get('/register', 1000000);
   });
 
   it('Should enable submit button when all fields are filled.', () => {

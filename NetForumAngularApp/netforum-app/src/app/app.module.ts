@@ -3,18 +3,25 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 
-import { RegisterComponent } from './components/app.register.component';
+import { AppRoutingModule } from './routing/app-routing.module';
+
+import { AppComponent } from './components/app-component/app.component';
+import { RegisterComponent } from './components/register-component/register.component';
 
 @NgModule({
   declarations: [
-    RegisterComponent
+    RegisterComponent,
+    AppComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
-    HttpModule
+    HttpModule,
+    AppRoutingModule
   ],
   providers: [],
-  bootstrap: [RegisterComponent]
+  bootstrap: [
+    AppComponent
+  ]
 })
 export class AppModule { }
