@@ -1,6 +1,8 @@
-<h1>{{title}}</h1>
-<nav>
-    <a id="loginMenuBarLink" routerLink="/login" routerLinkActive="active">Login</a>
-    <a id="registerMenuBarLink" routerLink="/register" routerLinkActive="active">Register</a>
-</nav>
-<router-outlet></router-outlet>
+<div class="jumbotron">
+    <div class="container">
+        <div class="col-sm-8 col-sm-offset-2">
+            <alert></alert>
+            <router-outlet></router-outlet>
+        </div>
+    </div>
+</div>
