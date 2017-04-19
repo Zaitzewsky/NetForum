@@ -1,5 +1,4 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Moq;
+﻿using Moq;
 using UserAccountFacade.Interface;
 using Viewmodels.UserAccount;
 using System.Threading.Tasks;
@@ -8,20 +7,19 @@ using NetForumApi.Controllers.UserAccountControllers;
 using System.Linq;
 using System.Web.Http.Results;
 using System;
+using Xunit;
+using FluentAssertions;
 
 namespace UnitTests.Application_Services.UserAccountController
 {
-    [TestClass]
     public class RegisterControllerUnitTest
     {
-        private Mock<IRegisterFacade> _registerFacadeMock;
-        private RegisterController _sut;
-
-        private UserViewmodel _user;
+        private readonly Mock<IRegisterFacade> _registerFacadeMock;
+        private readonly RegisterController _sut;
+        private readonly UserViewmodel _user;
 
         #region Setup
-        [TestInitialize]
-        public void Initialize()
+        public RegisterControllerUnitTest()
         {
             _user = DataSupplier.DataSupplier.CreateUserViewmodels("Password").First();
 
@@ -33,28 +31,28 @@ namespace UnitTests.Application_Services.UserAccountController
         #endregion
 
         #region Tests
-        [TestMethod]
-        [TestCategory("UnitTest")]
+        [Fact]
+        [Trait("Category", "Unit")]
         public async Task RegisterControllerReturns200()
         {
             var httpActionResult = await _sut.Post(_user);
 
-            Assert.IsInstanceOfType(httpActionResult, typeof(OkNegotiatedContentResult<string>));
+            httpActionResult.Should().BeOfType<OkNegotiatedContentResult<string>>();
         }
 
-        [TestMethod]
-        [TestCategory("UnitTest")]
+        [Fact]
+        [Trait("Category", "Unit")]
         public async Task RegisterControllerReturns400()
         {
             string[] errors = new string[0];
             _registerFacadeMock.Setup(x => x.Register(It.IsAny<UserViewmodel>(), It.IsAny<string>())).Returns(Task.FromResult(IdentityResult.Failed(errors)));
             var httpActionResult = await _sut.Post(_user);
 
-            Assert.IsInstanceOfType(httpActionResult, typeof(BadRequestErrorMessageResult));
+            httpActionResult.Should().BeOfType<BadRequestErrorMessageResult>();
         }
 
-        [TestMethod]
-        [TestCategory("UnitTest")]
+        [Fact]
+        [Trait("Category", "Unit")]
         public async Task RegisterControllerReturns400WithCorrectErrorMessage()
         {
             var error = "Username already exists!";
@@ -65,11 +63,11 @@ namespace UnitTests.Application_Services.UserAccountController
             var httpActionResult = await _sut.Post(_user);
             var badRequest = httpActionResult as BadRequestErrorMessageResult;
 
-            Assert.AreEqual(errorMessage, badRequest.Message);
+            badRequest.Message.Should().BeEquivalentTo(errorMessage);
         }
 
-        [TestMethod]
-        [TestCategory("UnitTest")]
+        [Fact]
+        [Trait("Category", "Unit")]
         public async Task RegisterControllerReturns400WithCorrectErrorMessageServerValidationException()
         {
             var errorMessage = "ServerValidationException thrown!";
@@ -77,11 +75,11 @@ namespace UnitTests.Application_Services.UserAccountController
             var httpActionResult = await _sut.Post(_user);
             var badRequest = httpActionResult as BadRequestErrorMessageResult;
 
-            Assert.AreEqual(errorMessage, badRequest.Message);
+            badRequest.Message.Should().BeEquivalentTo(errorMessage);
         }
 
-        [TestMethod]
-        [TestCategory("UnitTest")]
+        [Fact]
+        [Trait("Category", "Unit")]
         public async Task RegisterControllerReturns400WithCorrectErrorMessageGeneralException()
         {
             var fullErrorMessage = "Something unexpected happened: Exception thrown!. Try to reload this page.";
@@ -90,7 +88,7 @@ namespace UnitTests.Application_Services.UserAccountController
             var httpActionResult = await _sut.Post(_user);
             var badRequest = httpActionResult as BadRequestErrorMessageResult;
 
-            Assert.AreEqual(fullErrorMessage, badRequest.Message);
+            badRequest.Message.Should().BeEquivalentTo(fullErrorMessage);
         }
         #endregion
     }
