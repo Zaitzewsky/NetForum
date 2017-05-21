@@ -38,6 +38,7 @@ namespace UnitTests.Application_Services.UserAccountService
             //Mock setup
             _uow.Setup(x => x.GetUserRepository()).Returns(_userRepository.Object);
             _userRepository.Setup(x => x.Register(It.IsAny<User>(), _password)).Returns(Task.FromResult(IdentityResult.Success));
+            _userRepository.Setup(x => x.SetForumUserRole(It.IsAny<User>())).Returns(Task.FromResult(IdentityResult.Success));
 
             //System under test initialise
             _sut = new RegisterService(_uow.Object);
@@ -68,6 +69,15 @@ namespace UnitTests.Application_Services.UserAccountService
             var identityResult = await _sut.Register(_user, _password);
 
             Assert.IsFalse(identityResult.Succeeded);
+        }
+
+        [TestMethod]
+        [TestCategory("UnitTest")]
+        public async Task SetForumUserRoleOnRegistredUser()
+        {
+            var identityResult = await _sut.SetForumUserRole(_user);
+
+            Assert.IsTrue(identityResult.Succeeded);
         }
 
         [TestMethod]

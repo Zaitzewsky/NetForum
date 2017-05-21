@@ -32,7 +32,10 @@ namespace UserAccountServiceNameSpace.Service
         {
             try
             {
-                return await _userRepository.Register(user, password);
+                
+                var identityResult = await _userRepository.Register(user, password);
+                await SetForumUserRole(user);
+                return identityResult;
             }
             catch (DbEntityValidationException ex)
             {
@@ -42,6 +45,11 @@ namespace UserAccountServiceNameSpace.Service
             {
                 throw;
             }
+        }
+
+        public async Task<IdentityResult> SetForumUserRole(User user)
+        {
+            return await _userRepository.SetForumUserRole(user);
         }
     }
 }

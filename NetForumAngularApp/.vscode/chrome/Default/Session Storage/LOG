@@ -1,1 +1,73 @@
-2017/04/17-18:25:01.836 17136 Reusing MANIFEST d:\Users\Mical\Documents\Visual Studio 2015\GitHub\NetForum\NetForum\NetForumAngularApp\.vscode\chrome\Default\Session Storage/MANIFEST-000001
+2017/05/21-17:37:33.146 11464 Reusing MANIFEST d:\Users\Mical\Documents\Visual Studio 2015\GitHub\NetForum\NetForum\NetForumAngularApp\.vscode\chrome\Default\Session Storage/MANIFEST-000001
+2017/05/21-17:37:44.390 16964 Level-0 table #5: started
+2017/05/21-17:37:44.442 16964 Level-0 table #5: 95699 bytes OK
+2017/05/21-17:37:44.467 16964 Delete type=0 #3
+2017/05/21-17:39:41.284 16964 Level-0 table #7: started
+2017/05/21-17:39:41.323 16964 Level-0 table #7: 94557 bytes OK
+2017/05/21-17:39:41.345 16964 Delete type=0 #4
+2017/05/21-17:48:51.622 16964 Level-0 table #9: started
+2017/05/21-17:48:51.673 16964 Level-0 table #9: 95009 bytes OK
+2017/05/21-17:48:51.694 16964 Delete type=0 #6
+2017/05/21-17:49:03.668 16964 Level-0 table #11: started
+2017/05/21-17:49:03.744 16964 Level-0 table #11: 94548 bytes OK
+2017/05/21-17:49:03.793 16964 Delete type=0 #8
+2017/05/21-17:55:45.470 16964 Level-0 table #13: started
+2017/05/21-17:55:45.513 16964 Level-0 table #13: 94490 bytes OK
+2017/05/21-17:55:45.543 16964 Delete type=0 #10
+2017/05/21-18:01:46.157 16964 Level-0 table #15: started
+2017/05/21-18:01:46.183 16964 Level-0 table #15: 95513 bytes OK
+2017/05/21-18:01:46.214 16964 Delete type=0 #12
+2017/05/21-18:01:46.215 16964 Compacting 4@0 + 1@1 files
+2017/05/21-18:01:46.261 16964 Generated table #16@0: 101 keys, 190246 bytes
+2017/05/21-18:01:46.261 16964 Compacted 4@0 + 1@1 files => 190246 bytes
+2017/05/21-18:01:46.289 16964 compacted to: files[ 0 1 1 0 0 0 0 ]
+2017/05/21-18:01:46.289 16964 Delete type=2 #7
+2017/05/21-18:01:46.289 16964 Delete type=2 #9
+2017/05/21-18:01:46.290 16964 Delete type=2 #11
+2017/05/21-18:01:46.290 16964 Delete type=2 #13
+2017/05/21-18:01:46.290 16964 Delete type=2 #15
+2017/05/21-19:08:31.189 16964 Level-0 table #18: started
+2017/05/21-19:08:31.233 16964 Level-0 table #18: 72066 bytes OK
+2017/05/21-19:08:31.262 16964 Delete type=0 #14
+2017/05/21-19:09:44.907 16964 Level-0 table #20: started
+2017/05/21-19:09:44.953 16964 Level-0 table #20: 143357 bytes OK
+2017/05/21-19:09:44.972 16964 Delete type=0 #17
+2017/05/21-19:11:14.864 16964 Level-0 table #22: started
+2017/05/21-19:11:14.919 16964 Level-0 table #22: 74483 bytes OK
+2017/05/21-19:11:14.940 16964 Delete type=0 #19
+2017/05/21-19:16:30.121 16964 Level-0 table #24: started
+2017/05/21-19:16:30.167 16964 Level-0 table #24: 106115 bytes OK
+2017/05/21-19:16:30.194 16964 Delete type=0 #21
+2017/05/21-19:16:30.194 16964 Compacting 4@0 + 1@1 files
+2017/05/21-19:16:30.249 16964 Generated table #25@0: 247 keys, 409055 bytes
+2017/05/21-19:16:30.249 16964 Compacted 4@0 + 1@1 files => 409055 bytes
+2017/05/21-19:16:30.268 16964 compacted to: files[ 0 1 1 0 0 0 0 ]
+2017/05/21-19:16:30.269 16964 Delete type=2 #16
+2017/05/21-19:16:30.269 16964 Delete type=2 #18
+2017/05/21-19:16:30.270 16964 Delete type=2 #20
+2017/05/21-19:16:30.270 16964 Delete type=2 #22
+2017/05/21-19:16:30.270 16964 Delete type=2 #24
+2017/05/21-19:26:53.333 16964 Level-0 table #27: started
+2017/05/21-19:26:53.381 16964 Level-0 table #27: 76188 bytes OK
+2017/05/21-19:26:53.403 16964 Delete type=0 #23
+2017/05/21-19:29:44.493 16964 Level-0 table #29: started
+2017/05/21-19:29:44.555 16964 Level-0 table #29: 76891 bytes OK
+2017/05/21-19:29:44.580 16964 Delete type=0 #26
+2017/05/21-19:31:48.478 16964 Level-0 table #31: started
+2017/05/21-19:31:48.521 16964 Level-0 table #31: 80899 bytes OK
+2017/05/21-19:31:48.536 16964 Delete type=0 #28
+2017/05/21-19:53:48.496 16964 Level-0 table #33: started
+2017/05/21-19:53:48.527 16964 Level-0 table #33: 12351 bytes OK
+2017/05/21-19:53:48.539 16964 Delete type=0 #30
+2017/05/21-19:53:48.539 16964 Compacting 4@0 + 1@1 files
+2017/05/21-19:53:48.614 16964 Generated table #34@0: 540 keys, 565393 bytes
+2017/05/21-19:53:48.614 16964 Compacted 4@0 + 1@1 files => 565393 bytes
+2017/05/21-19:53:48.633 16964 compacted to: files[ 0 1 1 0 0 0 0 ]
+2017/05/21-19:53:48.634 16964 Delete type=2 #25
+2017/05/21-19:53:48.634 16964 Delete type=2 #27
+2017/05/21-19:53:48.634 16964 Delete type=2 #29
+2017/05/21-19:53:48.635 16964 Delete type=2 #31
+2017/05/21-19:53:48.635 16964 Delete type=2 #33
+2017/05/21-20:14:16.203 16964 Level-0 table #36: started
+2017/05/21-20:14:16.315 16964 Level-0 table #36: 14387 bytes OK
+2017/05/21-20:14:16.348 16964 Delete type=0 #32
