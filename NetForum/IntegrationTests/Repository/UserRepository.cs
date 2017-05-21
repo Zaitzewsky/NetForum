@@ -8,6 +8,7 @@ using System.Transactions;
 using Microsoft.AspNet.Identity;
 using System.Data.Entity.Validation;
 using System.Linq;
+using System;
 
 namespace IntegrationTests.Repository
 {
@@ -191,6 +192,28 @@ namespace IntegrationTests.Repository
 
                 Assert.IsNull(user);
             }
+        }
+
+        [TestMethod]
+        [TestCategory("Integration")]
+        public async Task SetForumUserRoleSuccess()
+        {
+            using (new TransactionScope(TransactionScopeAsyncFlowOption.Enabled))
+            {
+                await _sut.Register(_user, _password);
+                var identityResult = await _sut.SetForumUserRole(_user);
+
+                Assert.IsTrue(identityResult.Succeeded);
+            }
+        }
+
+        [TestMethod]
+        [TestCategory("Integration")]
+        [ExpectedException(typeof(InvalidOperationException))]
+        public async Task SetForumUserRoleFailDueToMissingUserId()
+        {
+            using (new TransactionScope(TransactionScopeAsyncFlowOption.Enabled))
+                await _sut.SetForumUserRole(_user);
         }
 
         [TestMethod]

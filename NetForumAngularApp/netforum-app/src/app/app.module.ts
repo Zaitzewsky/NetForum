@@ -9,6 +9,7 @@ import { AppComponent } from './components/app-component/app.component';
 import { RegisterComponent } from './components/register-component/register.component';
 
 import { AlertComponent } from './directives/alert.component';
+import { AuthGuard } from './guards/auth.guard';
 
 import { AlertService, AuthenticationService, RegisterService } from './services/index';
 
@@ -25,9 +26,10 @@ import { AlertService, AuthenticationService, RegisterService } from './services
     AppRoutingModule
   ],
   providers: [
-      AlertService,
-      AuthenticationService,
-      RegisterService
+    AuthGuard,
+    AlertService,
+    AuthenticationService,
+    RegisterService
   ],
   bootstrap: [
     AppComponent

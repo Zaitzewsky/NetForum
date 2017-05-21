@@ -14,6 +14,7 @@ namespace Data.Repository.Repository
     {
         private readonly ForumContext _context;
         private readonly UserManager<User> _userManager;
+        public UserManager<User> UserManager { get { return _userManager; } }
 
         public UserRepository(ForumContext context, UserManager<User> userManager)
         {
@@ -44,6 +45,11 @@ namespace Data.Repository.Repository
         public async Task<User> Validate(string userName, string password)
         {
             return await _userManager.FindAsync(userName, password).ConfigureAwait(false);
+        }
+
+        public async Task<IdentityResult> SetForumUserRole(User user)
+        {
+            return await _userManager.AddToRoleAsync(user.Id, "ForumUser").ConfigureAwait(false);
         }
 
         public void SaveChanges()

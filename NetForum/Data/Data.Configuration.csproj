@@ -69,6 +69,10 @@
     <Compile Include="Migrations\201701221609577_ChangedToCustomIdentityTableNames.Designer.cs">
       <DependentUpon>201701221609577_ChangedToCustomIdentityTableNames.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201705211730445_MadePhoneNumberOnCustomerOptional.cs" />
+    <Compile Include="Migrations\201705211730445_MadePhoneNumberOnCustomerOptional.Designer.cs">
+      <DependentUpon>201705211730445_MadePhoneNumberOnCustomerOptional.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -89,6 +93,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201701221609577_ChangedToCustomIdentityTableNames.resx">
       <DependentUpon>201701221609577_ChangedToCustomIdentityTableNames.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201705211730445_MadePhoneNumberOnCustomerOptional.resx">
+      <DependentUpon>201705211730445_MadePhoneNumberOnCustomerOptional.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

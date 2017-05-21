@@ -32,9 +32,11 @@ export class RegisterComponent {
           data => {
               this.alertService.success('Registration successful', true);
               this.router.navigate(['/login']);
+              this.loading = false;
           },
           error => {
-              this.alertService.error(error);
+              var errorMessageBody = JSON.parse(error._body);
+              this.alertService.error(errorMessageBody.message);
               this.loading = false;
           });
 }

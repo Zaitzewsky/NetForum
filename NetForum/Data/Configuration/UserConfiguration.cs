@@ -15,7 +15,7 @@ namespace Data.Configuration
             Property(p => p.FirstName).IsRequired();
             Property(p => p.LastName).IsRequired();
             Property(p => p.UserName).IsRequired();
-            Property(p => p.PhoneNumber).IsRequired();
+            Property(p => p.PhoneNumber).IsOptional();
             Property(p => p.Email).IsRequired();
         }
     }
