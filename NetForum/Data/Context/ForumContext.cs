@@ -7,7 +7,7 @@ namespace Data.Context
 {
     public class ForumContext : IdentityDbContext<User>
     {
-        public ForumContext() : base("Data Source=DESKTOP-CB5546T;Initial Catalog=NetForum;Integrated Security=True;Connect Timeout=15;Encrypt=False;TrustServerCertificate=True;ApplicationIntent=ReadWrite;MultiSubnetFailover=False")
+        public ForumContext() : base(@"Data Source=THE-DEN-DESKTOP\NETFORUMDB;Initial Catalog=NetForum;Integrated Security=True;Connect Timeout=15;Encrypt=False;TrustServerCertificate=True;ApplicationIntent=ReadWrite;MultiSubnetFailover=False")
         {
             Configuration.LazyLoadingEnabled = false;
         }
