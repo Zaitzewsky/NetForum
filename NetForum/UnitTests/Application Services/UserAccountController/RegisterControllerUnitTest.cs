@@ -7,19 +7,21 @@ using NetForumApi.Controllers.UserAccountControllers;
 using System.Linq;
 using System.Web.Http.Results;
 using System;
-using Xunit;
 using FluentAssertions;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace UnitTests.Application_Services.UserAccountController
 {
+    [TestClass]
     public class RegisterControllerUnitTest
     {
-        private readonly Mock<IRegisterFacade> _registerFacadeMock;
-        private readonly RegisterController _sut;
-        private readonly UserViewmodel _user;
+        private Mock<IRegisterFacade> _registerFacadeMock;
+        private RegisterController _sut;
+        private UserViewmodel _user;
 
         #region Setup
-        public RegisterControllerUnitTest()
+        [TestInitialize]
+        public void Initialize()
         {
             _user = DataSupplier.DataSupplier.CreateUserViewmodels("Password").First();
 
@@ -31,8 +33,8 @@ namespace UnitTests.Application_Services.UserAccountController
         #endregion
 
         #region Tests
-        [Fact]
-        [Trait("Category", "Unit")]
+        [TestMethod]
+        [TestCategory("UnitTest")]
         public async Task RegisterControllerReturns200()
         {
             var httpActionResult = await _sut.Post(_user);
@@ -40,8 +42,8 @@ namespace UnitTests.Application_Services.UserAccountController
             httpActionResult.Should().BeOfType<OkNegotiatedContentResult<string>>();
         }
 
-        [Fact]
-        [Trait("Category", "Unit")]
+        [TestMethod]
+        [TestCategory("UnitTest")]
         public async Task RegisterControllerReturns400()
         {
             string[] errors = new string[0];
@@ -51,8 +53,8 @@ namespace UnitTests.Application_Services.UserAccountController
             httpActionResult.Should().BeOfType<BadRequestErrorMessageResult>();
         }
 
-        [Fact]
-        [Trait("Category", "Unit")]
+        [TestMethod]
+        [TestCategory("UnitTest")]
         public async Task RegisterControllerReturns400WithCorrectErrorMessage()
         {
             var error = "Username already exists!";
@@ -66,8 +68,8 @@ namespace UnitTests.Application_Services.UserAccountController
             badRequest.Message.Should().BeEquivalentTo(errorMessage);
         }
 
-        [Fact]
-        [Trait("Category", "Unit")]
+        [TestMethod]
+        [TestCategory("UnitTest")]
         public async Task RegisterControllerReturns400WithCorrectErrorMessageServerValidationException()
         {
             var errorMessage = "ServerValidationException thrown!";
@@ -78,8 +80,8 @@ namespace UnitTests.Application_Services.UserAccountController
             badRequest.Message.Should().BeEquivalentTo(errorMessage);
         }
 
-        [Fact]
-        [Trait("Category", "Unit")]
+        [TestMethod]
+        [TestCategory("UnitTest")]
         public async Task RegisterControllerReturns400WithCorrectErrorMessageGeneralException()
         {
             var fullErrorMessage = "Something unexpected happened: Exception thrown!. Try to reload this page.";

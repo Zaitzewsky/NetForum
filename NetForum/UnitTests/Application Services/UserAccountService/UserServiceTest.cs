@@ -127,7 +127,7 @@ namespace UnitTests.Application_Services.UserAccountService
 
         [TestMethod]
         [TestCategory("UnitTest")]
-        public async Task Dispose()
+        public void Dispose()
         {
             _sut.Dispose();
 
@@ -136,7 +136,7 @@ namespace UnitTests.Application_Services.UserAccountService
 
         [TestMethod]
         [TestCategory("UnitTest")]
-        public async Task DisposeOnce()
+        public void DisposeOnce()
         {
             _sut.Dispose();
 
