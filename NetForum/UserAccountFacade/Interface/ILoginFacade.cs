@@ -8,5 +8,6 @@ namespace UserAccountFacade.Interface
     {
         Task<UserViewmodel> Validate(string userName, string password);
         UserViewmodel MapUserViewModelFromUser(User user);
+        void Dispose();
     }
 }

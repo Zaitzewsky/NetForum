@@ -30,9 +30,11 @@ namespace NetForumApi
             var mapper = mapperConfig.Map();
 
             var unityContainer = new UnityContainer();
-            unityContainer.RegisterType<IUnitOfWork, UnitOfWork>();
+            unityContainer.RegisterType<IUnitOfWork, UnitOfWork>(new PerThreadLifetimeManager());
             unityContainer.RegisterType<IRegisterService, RegisterService>();
             unityContainer.RegisterType<IRegisterFacade, RegisterFacade>();
+            unityContainer.RegisterType<ILoginService, LoginService>();
+            unityContainer.RegisterType<ILoginFacade, LoginFacade>();
             unityContainer.RegisterInstance(mapper);
 
             return new UnityResolver(unityContainer);

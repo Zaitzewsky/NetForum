@@ -30,11 +30,11 @@ namespace UserAccountServiceNameSpace.Service
         {
             try
             {
-                return await _userRepository.Validate(userName, password);
-            }
-            catch (DbEntityValidationException ex)
-            {
-                throw new ServerValidationException(ErrorMessageBuilder.BuildErrorMessage("Login failed due to these issues: ", ex.EntityValidationErrors), ServerValidationException.ServerValidationExceptionType.Error);
+                var user = await _userRepository.Validate(userName, password);
+                if(user == null)
+                    throw new ServerValidationException("Wrong username or password!", ServerValidationException.ServerValidationExceptionType.Error);
+
+                return user;
             }
             catch (Exception)
             {

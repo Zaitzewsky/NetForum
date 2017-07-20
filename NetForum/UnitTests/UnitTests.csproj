@@ -133,6 +133,7 @@
   </Choose>
   <ItemGroup>
     <Compile Include="Application Services\UserAccountController\RegisterControllerUnitTest.cs" />
+    <Compile Include="Application Services\UserAccountController\LoginControllerUnitTest.cs" />
     <Compile Include="Application Services\UserAccountFacade\LoginFacadeTest.cs" />
     <Compile Include="Application Services\UserAccountFacade\RegisterFacadeTest.cs" />
     <Compile Include="Application Services\UserAccountService\LoginServiceTest.cs" />
@@ -152,6 +153,10 @@
     <ProjectReference Include="..\Domain\Domain.csproj">
       <Project>{E92D160C-3AB7-42FF-B50D-F45DACF0D8FA}</Project>
       <Name>Domain</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ErrorMessageBuilder\MessageBuilder.csproj">
+      <Project>{9781A20D-E4EC-40D3-A024-FBD4DBC87D6B}</Project>
+      <Name>MessageBuilder</Name>
     </ProjectReference>
     <ProjectReference Include="..\Exceptions\Exceptions.csproj">
       <Project>{1D7DD6BC-077B-409E-A51F-EC446C76C9DA}</Project>
