@@ -58,9 +58,10 @@ namespace UnitTests.Application_Services.UserAccountService
         {
             var wrongUserName = "wrongUserName";
             var wrongPassword = "wrongPassword";
+            User nullUser = null;
 
             _userRepository.Setup(x => x.Validate(wrongUserName, wrongPassword))
-               .Throws<DbEntityValidationException>();
+                           .Returns(Task.FromResult(nullUser));
 
             User user = await _sut.Validate(wrongUserName, wrongPassword);
         }

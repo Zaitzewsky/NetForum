@@ -35,7 +35,7 @@ namespace UnitTests.Application_Services.UserAccountController
         #region Tests
         [TestMethod]
         [TestCategory("UnitTest")]
-        public async Task RegisterControllerReturns200()
+        public async Task RegisterControllerReturnsPost200()
         {
             var httpActionResult = await _sut.Post(_user);
 
@@ -44,7 +44,7 @@ namespace UnitTests.Application_Services.UserAccountController
 
         [TestMethod]
         [TestCategory("UnitTest")]
-        public async Task RegisterControllerReturns400()
+        public async Task RegisterControllerReturnsPost400()
         {
             string[] errors = new string[0];
             _registerFacadeMock.Setup(x => x.Register(It.IsAny<UserViewmodel>(), It.IsAny<string>())).Returns(Task.FromResult(IdentityResult.Failed(errors)));
@@ -55,7 +55,7 @@ namespace UnitTests.Application_Services.UserAccountController
 
         [TestMethod]
         [TestCategory("UnitTest")]
-        public async Task RegisterControllerReturns400WithCorrectErrorMessage()
+        public async Task RegisterControllerReturnsPost400WithCorrectErrorMessage()
         {
             var error = "Username already exists!";
             var errorMessage = "Registration failed: " + Environment.NewLine + Environment.NewLine + error;
@@ -70,7 +70,7 @@ namespace UnitTests.Application_Services.UserAccountController
 
         [TestMethod]
         [TestCategory("UnitTest")]
-        public async Task RegisterControllerReturns400WithCorrectErrorMessageServerValidationException()
+        public async Task RegisterControllerReturnsPost400WithCorrectErrorMessageServerValidationException()
         {
             var errorMessage = "ServerValidationException thrown!";
             _registerFacadeMock.Setup(x => x.Register(It.IsAny<UserViewmodel>(), It.IsAny<string>())).Throws(new Exceptions.Validation.ServerValidationException(errorMessage));
@@ -82,7 +82,7 @@ namespace UnitTests.Application_Services.UserAccountController
 
         [TestMethod]
         [TestCategory("UnitTest")]
-        public async Task RegisterControllerReturns400WithCorrectErrorMessageGeneralException()
+        public async Task RegisterControllerPostReturns400WithCorrectErrorMessageGeneralException()
         {
             var fullErrorMessage = "Something unexpected happened: Exception thrown!. Try to reload this page.";
             var error = "Exception thrown!";

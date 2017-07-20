@@ -9,7 +9,7 @@ using Exceptions.Validation;
 
 namespace UserAccountFacade.Facade
 {
-    public class LoginFacade : ILoginFacade
+    public class LoginFacade : ILoginFacade, IDisposable
     {
         private ILoginService _loginService;
         private IMapper _mapper;
@@ -18,6 +18,11 @@ namespace UserAccountFacade.Facade
         {
             _loginService = loginService;
             _mapper = mapper;
+        }
+
+        public void Dispose()
+        {
+            _loginService.Dispose();
         }
 
         public UserViewmodel MapUserViewModelFromUser(User user)
