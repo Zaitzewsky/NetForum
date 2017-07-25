@@ -32,6 +32,13 @@ namespace UoW
             return _userRepository ?? (_userRepository = new UserRepository(_context, _userManager));
         }
 
+        public string GetUserRoleById(string userId)
+        {
+            var roles = _userManager.GetRoles(userId);
+            var singleRole = roles[0];
+            return singleRole;
+        }
+
         public void Commit()
         {
             _context.SaveChanges();

@@ -10,7 +10,12 @@ using UserAccountFacade.Interface;
 using UserAccountFacade.Facade;
 using Mapping.Configuration;
 using System.Web.Http.Dependencies;
+using NetForumApi;
+using Microsoft.Owin;
+using Microsoft.Owin.Security.OAuth;
+using System;
 
+[assembly: OwinStartup(typeof(Startup))]
 namespace NetForumApi
 {
     public class Startup
@@ -18,13 +23,20 @@ namespace NetForumApi
         public void Configuration(IAppBuilder app)
         {
             var config = new HttpConfiguration();
-            config.DependencyResolver = SetDependencies();
+
+            //Configure DI and Authorization provider
+            var unityContainer = CreateAndRegisterUnityContainer();
+            var authProvider = GetAuthProvider(unityContainer);
+            config.DependencyResolver = CreateUnityResolver(unityContainer);
+
+            ConfigureOAuth(app, authProvider);
+                      
             WebApiConfig.Register(config);
             app.UseCors(Microsoft.Owin.Cors.CorsOptions.AllowAll);
             app.UseWebApi(config);
         }
 
-        public IDependencyResolver SetDependencies()
+        private static UnityContainer CreateAndRegisterUnityContainer()
         {
             var mapperConfig = new AutoMapperConfiguration();
             var mapper = mapperConfig.Map();
@@ -36,8 +48,33 @@ namespace NetForumApi
             unityContainer.RegisterType<ILoginService, LoginService>();
             unityContainer.RegisterType<ILoginFacade, LoginFacade>();
             unityContainer.RegisterInstance(mapper);
+            return unityContainer;
+        }
+
+        public IDependencyResolver CreateUnityResolver(UnityContainer unityContainer)
+        {
+            GetAuthProvider(unityContainer);
 
             return new UnityResolver(unityContainer);
+        }
+
+        private AuthorizationServerProvider GetAuthProvider(UnityContainer unityContainer)
+        {
+            return new AuthorizationServerProvider(unityContainer.Resolve<ILoginFacade>(), unityContainer.Resolve<IUnitOfWork>());
+        }
+
+        public void ConfigureOAuth(IAppBuilder app, AuthorizationServerProvider authProvider)
+        {
+            var oAuthServerOptions = new OAuthAuthorizationServerOptions
+            {
+                AllowInsecureHttp = true,
+                TokenEndpointPath = new PathString("/token"),
+                AccessTokenExpireTimeSpan = TimeSpan.FromDays(1),
+                Provider = authProvider
+            };
+
+            app.UseOAuthAuthorizationServer(oAuthServerOptions);
+            app.UseOAuthBearerAuthentication(new OAuthBearerAuthenticationOptions());
         }
     }
 }

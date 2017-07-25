@@ -39,6 +39,23 @@ namespace IntegrationTests.Repository
 
         [TestMethod]
         [TestCategory("Integration")]
+        public async Task GetUserRoleSuccess()
+        {
+            using (new TransactionScope(TransactionScopeAsyncFlowOption.Enabled))
+            {
+                var expectedUserRole = "ForumUser";
+                
+                await _sut.Register(_user, _password);
+                await _sut.SetForumUserRole(_user);
+
+                var returnedUserRole = _unitOfWork.GetUserRoleById(_user.Id);
+
+                Assert.AreEqual(expectedUserRole, returnedUserRole);
+            }
+        }
+
+        [TestMethod]
+        [TestCategory("Integration")]
         public async Task GetAllSuccessNotNull()
         {
             using (new TransactionScope(TransactionScopeAsyncFlowOption.Enabled))

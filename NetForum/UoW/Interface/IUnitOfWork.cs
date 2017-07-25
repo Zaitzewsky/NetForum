@@ -7,6 +7,8 @@ namespace UoW.Interface
     {
         void Commit();
         IUserRepository GetUserRepository();
+        string GetUserRoleById(string userId);
         new void Dispose();
+        
     }
 }
