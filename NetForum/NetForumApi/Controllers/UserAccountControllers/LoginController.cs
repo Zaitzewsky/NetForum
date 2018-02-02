@@ -1,5 +1,4 @@
 ﻿using UserAccountFacade.Interface;
-using System.Collections.Generic;
 using System.Web.Http;
 using System;
 using System.Threading.Tasks;

@@ -1,8 +1,5 @@
-﻿using AutoMapper;
-using System.Web.Http;
-using UoW.Interface;
+﻿using System.Web.Http;
 using UserAccountFacade.Interface;
-using UserAccountServiceNameSpace.Interface;
 using Viewmodels.UserAccount;
 using System;
 using System.Threading.Tasks;

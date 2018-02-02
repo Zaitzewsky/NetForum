@@ -1,7 +1,6 @@
 ﻿ using System.Web.Http;
 using Owin;
 using IoC;
-using Microsoft.Practices.Unity;
 using UoW.Interface;
 using UoW;
 using UserAccountServiceNameSpace.Interface;
@@ -14,6 +13,8 @@ using NetForumApi;
 using Microsoft.Owin;
 using Microsoft.Owin.Security.OAuth;
 using System;
+using Unity;
+using Unity.Lifetime;
 
 [assembly: OwinStartup(typeof(Startup))]
 namespace NetForumApi
@@ -51,14 +52,14 @@ namespace NetForumApi
             return unityContainer;
         }
 
-        public IDependencyResolver CreateUnityResolver(UnityContainer unityContainer)
+        public IDependencyResolver CreateUnityResolver(IUnityContainer unityContainer)
         {
             GetAuthProvider(unityContainer);
 
             return new UnityResolver(unityContainer);
         }
 
-        private AuthorizationServerProvider GetAuthProvider(UnityContainer unityContainer)
+        private AuthorizationServerProvider GetAuthProvider(IUnityContainer unityContainer)
         {
             return new AuthorizationServerProvider(unityContainer.Resolve<ILoginFacade>(), unityContainer.Resolve<IUnitOfWork>());
         }

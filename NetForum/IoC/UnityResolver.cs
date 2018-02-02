@@ -10,6 +10,8 @@ using UserAccountServiceNameSpace.Service;
 using System.Web.Http.Dependencies;
 using System;
 using System.Collections.Generic;
+using Unity;
+using Unity.Exceptions;
 
 namespace IoC
 {
